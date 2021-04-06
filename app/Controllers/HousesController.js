@@ -30,8 +30,7 @@ export default class HousesController {
     }
   }
 
-  async createHouse() {
-    debugger 
+  async createHouse() { 
     try {
       window.event.preventDefault() //preventDefault just keeps you from being taken to a different page
       const form = window.event.target //IDK about the window.event stuff
@@ -40,6 +39,8 @@ export default class HousesController {
         bedrooms: form.bedrooms.value,
         // @ts-ignore
         bathrooms: form.bathrooms.value,
+        // @ts-ignore
+        levels: form.levels.value,
         // @ts-ignore
         year: form.year.value,
         // @ts-ignore  this converts the string to a number

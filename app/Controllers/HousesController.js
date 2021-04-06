@@ -1,44 +1,45 @@
 import { ProxyState } from "../AppState.js";
-import { carsService } from "../Services/CarsService.js";
+import { housesService } from "../Services/HousesServices.js";
 
 
 //Private
 function _draw() {
-  let cars = ProxyState.cars
+  let houses = ProxyState.houses
   let template = ''
-  cars.forEach(car => {
-    template += car.Template
+  houses.forEach(house => {
+    template += house.Template
   })
-  document.getElementById('cars').innerHTML = template
+  document.getElementById('houses').innerHTML = template
 }
 
 //Public
-export default class CarsController {
+export default class HousesController {
   constructor() {
-    ProxyState.on('cars', _draw);
+    ProxyState.on('houses', _draw);
 
     // REVIEW
-    // GET CARS ON LOAD
-    this.getCars()
+    // GET Houses ON LOAD - this is calling the async getHouses
+    this.getHouses()
   }
 
-  async getCars() {
+  async getHouses() {
     try {
-      await carsService.getCars()
+      await housesService.getHouses() //this is waiting for getHouse from HousesService 
     } catch (error) {
       console.error(error)
     }
   }
 
-  async createCar() {
+  async createHouse() {
+    debugger 
     try {
-      window.event.preventDefault()
-      const form = window.event.target
-      let newCar = {
+      window.event.preventDefault() //preventDefault just keeps you from being taken to a different page
+      const form = window.event.target //IDK about the window.event stuff
+      let newHouse = {
         // @ts-ignore
-        make: form.make.value,
+        bedrooms: form.bedrooms.value,
         // @ts-ignore
-        model: form.model.value,
+        bathrooms: form.bathrooms.value,
         // @ts-ignore
         year: form.year.value,
         // @ts-ignore  this converts the string to a number
@@ -48,7 +49,7 @@ export default class CarsController {
         // @ts-ignore
         imgUrl: form.imgUrl.value
       }
-      await carsService.createCar(newCar)
+      await housesService.createHouse(newHouse)
 
       // @ts-ignore
       form.reset()
@@ -59,16 +60,16 @@ export default class CarsController {
     }
   }
 
-  deleteCar(id) {
+  deleteHouse(id) {
     try {
-      carsService.deleteCar(id)
+      housesService.deleteHouse(id)
     } catch (error) {
       console.error(error)
     }
   }
 
   bid(id) {
-    carsService.bid(id)
+    housesService.bid(id)
   }
 
 }

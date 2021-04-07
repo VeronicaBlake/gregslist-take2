@@ -11,7 +11,7 @@ export default class House {
       this.id = id
   
     }
-  
+    //You can be picky with what you render here, but the form in index html needs to match the parameters on the website 100%
     get Template() {
       return `
       <div class="col-md-4 mb-3">
